@@ -1,19 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:network_project/home_screen.dart';
+import 'dart:convert';
 
-void main() {
-  runApp(const MyApp());
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:network_project/screens/home_screen.dart';
+
+void main(List<String> args) {
+  runApp(
+    Application(),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Application extends StatelessWidget {
+  const Application({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: HomeScreen(),
     );
   }
 }
