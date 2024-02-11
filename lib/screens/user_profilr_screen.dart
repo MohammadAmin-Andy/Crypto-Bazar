@@ -3,26 +3,40 @@ import 'package:network_project/data/model/user.dart';
 
 class UserProfileScreen extends StatefulWidget {
   UserProfileScreen({super.key, this.user});
-  User? user;
+  List<User>? user;
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-  User? user;
+  List<User>? userList;
   @override
   void initState() {
     //String username = '';
     // TODO: implement initState
     super.initState();
-    user = widget.user;
+    userList = widget.user;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(user!.username),
+      body: SafeArea(
+        child: ListView.builder(
+          itemCount: userList!.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                color: Colors.red,
+                child: Text(
+                  userList![index].name,
+                  style: TextStyle(fontSize: 30),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
