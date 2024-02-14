@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:network_project/data/model/crypto.dart';
 import 'package:network_project/data/model/user.dart';
 import 'package:network_project/screens/user_profilr_screen.dart';
 import 'package:dio/dio.dart';
@@ -52,15 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
     //String phone = jsonDecode(response.body)['phone'];
 
     //User user = User(id, name, username, city, phone);
-    var response =
-        await Dio().get('https://jsonplaceholder.typicode.com/users');
+    var response = await Dio().get('https://api.coincap.io/v2/assets');
     var test1 = response.data;
 
-    List<User> userList = response.data
-        .map<User>((jsonMapObject) => User.fromMapJson(jsonMapObject))
+    List<Crypto> cryptoList = response.data['data']
+        .map<Crypto>((jsonMapObject) => Crypto.fromMapJson(jsonMapObject))
         .toList();
-    var test2 = userList;
-    print('test');
+    // var test2 = userList;
+    // print('test');
 
     // userList.forEach((Element) {
     //   print(Element.name);
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => UserProfileScreen(user: userList),
+        builder: (context) => CoinListScreen(cryptoList: cryptoList),
       ),
     );
     //print(response.body);
