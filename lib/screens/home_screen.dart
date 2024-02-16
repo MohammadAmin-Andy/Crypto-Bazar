@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:network_project/data/constant/constans.dart';
 import 'package:network_project/data/model/crypto.dart';
 import 'package:network_project/data/model/user.dart';
-import 'package:network_project/screens/user_profilr_screen.dart';
+import 'package:network_project/screens/coin_list_screen.dart';
 import 'package:dio/dio.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,11 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
       home: Scaffold(
         backgroundColor: Colors.grey[800],
         body: SafeArea(
-          child: Center(
-            child: SpinKitFadingCube(
-              color: Colors.green,
-              size: 80,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/logo.png'),
+              SpinKitWave(
+                color: grayColor,
+                size: 30,
+              ),
+            ],
           ),
         ),
       ),
