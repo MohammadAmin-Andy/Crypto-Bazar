@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     //User user = User(id, name, username, city, phone);
     var response = await Dio().get('https://api.coincap.io/v2/assets');
-    var test1 = response.data;
+    //var test1 = response.data;
 
     List<Crypto> cryptoList = response.data['data']
         .map<Crypto>((jsonMapObject) => Crypto.fromMapJson(jsonMapObject))
