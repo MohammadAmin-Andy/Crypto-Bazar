@@ -37,30 +37,37 @@ class _CoinListScreenState extends State<CoinListScreen> {
       ),
       backgroundColor: blackColor,
       body: SafeArea(
-        child: RefreshIndicator(
-          backgroundColor: greenColor,
-          color: blackColor,
-          child: ListView.builder(
-            itemCount: cryptoList!.length,
-            itemBuilder: (context, index) {
-              return _getListTileItem(
-                cryptoList![index],
-              );
-            },
-          ),
-          onRefresh: () async {
-            List<Crypto> freshData = await _getData();
-            setState(() {
-              cryptoList = freshData;
-            });
-            // Replace this delay with the code to be executed during refresh
-            // and return asynchronous code
-            return Future<void>.delayed(
-              const Duration(seconds: 3),
-            );
-          },
-        ),
-      ),
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _getSearchBar(),
+          Expanded(
+            child: RefreshIndicator(
+              backgroundColor: greenColor,
+              color: blackColor,
+              child: ListView.builder(
+                itemCount: cryptoList!.length,
+                itemBuilder: (context, index) {
+                  return _getListTileItem(
+                    cryptoList![index],
+                  );
+                },
+              ),
+              onRefresh: () async {
+                List<Crypto> freshData = await _getData();
+                setState(() {
+                  cryptoList = freshData;
+                });
+                // Replace this delay with the code to be executed during refresh
+                // and return asynchronous code
+                return Future<void>.delayed(
+                  const Duration(seconds: 3),
+                );
+              },
+            ),
+          )
+        ],
+      )),
     );
   }
 
@@ -152,5 +159,48 @@ class _CoinListScreenState extends State<CoinListScreen> {
         .map<Crypto>((jsonMapObject) => Crypto.fromMapJson(jsonMapObject))
         .toList();
     return cryptoList;
+  }
+
+  Widget _getSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: TextField(
+          onChanged: (value) {
+            _filterlist(value);
+          },
+          cursorColor: blackColor,
+          //textAlign: TextAlign.end,
+          decoration: InputDecoration(
+            hintText: 'اسم رمز ارز معتبر را سرچ کنید',
+            hintStyle: TextStyle(
+              color: Colors.white,
+              fontFamily: 'Mh',
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                width: 0,
+                style: BorderStyle.none,
+              ),
+            ),
+            filled: true,
+            fillColor: greenColor,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _filterlist(String enteredKeyword) {
+    List<Crypto> cryptoResultList = [];
+
+    cryptoResultList = cryptoList!.where((element) {
+      return element.name.toLowerCase().contains(enteredKeyword.toLowerCase());
+    }).toList();
+    setState(() {
+      cryptoList = cryptoResultList;
+    });
   }
 }
