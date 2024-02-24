@@ -193,8 +193,15 @@ class _CoinListScreenState extends State<CoinListScreen> {
     );
   }
 
-  void _filterlist(String enteredKeyword) {
+  Future<void> _filterlist(String enteredKeyword) async {
     List<Crypto> cryptoResultList = [];
+    if (enteredKeyword.isEmpty) {
+      var result = await _getData();
+      setState(() {
+        cryptoList = result;
+      });
+      return;
+    }
 
     cryptoResultList = cryptoList!.where((element) {
       return element.name.toLowerCase().contains(enteredKeyword.toLowerCase());
