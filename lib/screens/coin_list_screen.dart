@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:network_project/data/constant/constans.dart';
@@ -12,6 +14,7 @@ class CoinListScreen extends StatefulWidget {
 
 class _CoinListScreenState extends State<CoinListScreen> {
   List<Crypto>? cryptoList;
+  bool isSearchLoadingVisible = false;
   @override
   void initState() {
     //String username = '';
@@ -41,6 +44,18 @@ class _CoinListScreenState extends State<CoinListScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _getSearchBar(),
+          Visibility(
+            visible: isSearchLoadingVisible,
+            child: Center(
+              child: Text(
+                '...در حال آپدیت اطلاعت ارز ها',
+                style: TextStyle(
+                  color: greenColor,
+                  fontFamily: "Mh",
+                ),
+              ),
+            ),
+          ),
           Expanded(
             child: RefreshIndicator(
               backgroundColor: greenColor,
@@ -196,9 +211,13 @@ class _CoinListScreenState extends State<CoinListScreen> {
   Future<void> _filterlist(String enteredKeyword) async {
     List<Crypto> cryptoResultList = [];
     if (enteredKeyword.isEmpty) {
+      setState(() {
+        isSearchLoadingVisible = true;
+      });
       var result = await _getData();
       setState(() {
         cryptoList = result;
+        isSearchLoadingVisible = false;
       });
       return;
     }
