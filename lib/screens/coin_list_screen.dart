@@ -29,7 +29,7 @@ class _CoinListScreenState extends State<CoinListScreen> {
       appBar: AppBar(
         backgroundColor: blackColor,
         title: Text(
-          'کیریپتو بازار',
+          'کریپتو بازار',
           style: TextStyle(
             fontFamily: 'Mh',
             color: grayColor,
