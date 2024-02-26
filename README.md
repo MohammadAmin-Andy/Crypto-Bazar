@@ -1,16 +1,10 @@
-# network_project
+## Crypto Bazar
+ It is an application with the Flutter framework to display the price of digital currencies and the rising and falling trends compared to the last 24 hours, etc.
 
-A new Flutter project.
+## Video
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+https://github.com/MohammadAmin-Andy/Crypto-Bazar/assets/113265902/4e2ff237-0713-4898-af64-986f0cc72e67
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
